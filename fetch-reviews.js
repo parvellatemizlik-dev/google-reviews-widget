@@ -36,6 +36,7 @@ const req = https.request(options, (res) => {
           totalReviews: result.userRatingCount || 0,
           reviews: reviews.map(review => ({
             author: review.authorAttribution?.displayName || 'Anonim',
+            authorPhotoUrl: review.authorAttribution?.photoUri || '',
             rating: review.rating || 0,
             text: review.text?.text || '',
             relativeTime: review.relativePublishTimeDescription || '',
