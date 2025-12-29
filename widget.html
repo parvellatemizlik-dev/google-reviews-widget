@@ -97,78 +97,23 @@
             background: #1557b0;
         }
         
-        /* Yorum Kartları - Horizontal Scroll */
+        /* Yorum Kartları - Flex düzeni */
         .reviews-scroll-wrapper {
             position: relative;
+            width: 100%;
+            overflow: hidden;
         }
         
         .reviews-scroll-container {
-            overflow-x: auto;
-            overflow-y: hidden;
-            margin-bottom: 20px;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
-        }
-        
-        .reviews-scroll-container::-webkit-scrollbar {
-            display: none; /* Chrome/Safari/Opera */
-            width: 0;
-            height: 0;
+            overflow: visible;
+            margin-bottom: 0;
         }
         
         .reviews-grid {
             display: flex;
             gap: 15px;
-            min-width: min-content;
-        }
-        
-        /* Scroll Butonları */
-        .scroll-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-        
-        .scroll-button:hover {
-            background: #f5f5f5;
-            border-color: #1a73e8;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        
-        .scroll-button.left {
-            left: -24px;
-        }
-        
-        .scroll-button.right {
-            right: -24px;
-        }
-        
-        .scroll-button svg {
-            width: 24px;
-            height: 24px;
-            fill: #5f6368;
-        }
-        
-        .scroll-button:hover svg {
-            fill: #1a73e8;
-        }
-        
-        .scroll-button.disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            pointer-events: none;
+            justify-content: flex-start;
+            flex-wrap: wrap;
         }
         
         .review-card {
@@ -176,8 +121,7 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            min-width: 250px;
-            max-width: 250px;
+            width: calc(20% - 12px);
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
@@ -314,13 +258,8 @@
         }
         
         @media (max-width: 1200px) {
-            .reviews-grid {
-                gap: 12px;
-            }
-            
             .review-card {
-                min-width: 230px;
-                max-width: 230px;
+                width: calc(25% - 12px);
             }
         }
         
@@ -345,8 +284,7 @@
             }
             
             .review-card {
-                min-width: 200px;
-                max-width: 200px;
+                width: calc(50% - 8px);
                 padding: 15px;
             }
             
@@ -356,16 +294,11 @@
                 padding: 10px 20px;
                 font-size: 13px;
             }
-            
-            .scroll-button {
-                display: none;
-            }
         }
         
         @media (max-width: 480px) {
             .review-card {
-                min-width: 180px;
-                max-width: 180px;
+                width: 100%;
             }
             
             .rating-number {
@@ -429,35 +362,6 @@
             element.textContent = reviewText.classList.contains('expanded') ? 'Daha az' : 'Daha fazla';
         }
 
-        function scrollReviews(direction) {
-            const container = document.getElementById('scrollContainer');
-            const cardWidth = 250 + 15;
-            container.scrollBy({
-                left: direction * cardWidth * 2,
-                behavior: 'smooth'
-            });
-        }
-
-        function updateScrollButtons() {
-            const container = document.getElementById('scrollContainer');
-            const leftBtn = document.getElementById('scrollLeft');
-            const rightBtn = document.getElementById('scrollRight');
-            
-            if (!container || !leftBtn || !rightBtn) return;
-            
-            if (container.scrollLeft <= 0) {
-                leftBtn.classList.add('disabled');
-            } else {
-                leftBtn.classList.remove('disabled');
-            }
-            
-            if (container.scrollLeft >= container.scrollWidth - container.clientWidth - 1) {
-                rightBtn.classList.add('disabled');
-            } else {
-                rightBtn.classList.remove('disabled');
-            }
-        }
-
         async function loadReviews() {
             try {
                 const response = await fetch(REVIEWS_URL);
@@ -487,10 +391,7 @@
                 headerHTML += '</div>';
 
                 let reviewsHTML = '<div class="reviews-scroll-wrapper">';
-                reviewsHTML += '<button class="scroll-button left" id="scrollLeft" onclick="scrollReviews(-1)">';
-                reviewsHTML += '<svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>';
-                reviewsHTML += '</button>';
-                reviewsHTML += '<div class="reviews-scroll-container" id="scrollContainer">';
+                reviewsHTML += '<div class="reviews-scroll-container">';
                 reviewsHTML += '<div class="reviews-grid">';
 
                 data.reviews.forEach(function(review) {
@@ -524,19 +425,9 @@
                     reviewsHTML += '</div>';
                 });
 
-                reviewsHTML += '</div></div>';
-                reviewsHTML += '<button class="scroll-button right" id="scrollRight" onclick="scrollReviews(1)">';
-                reviewsHTML += '<svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>';
-                reviewsHTML += '</button></div>';
+                reviewsHTML += '</div></div></div>';
 
                 document.getElementById('reviews-widget').innerHTML = headerHTML + reviewsHTML;
-
-                setTimeout(updateScrollButtons, 100);
-                const container = document.getElementById('scrollContainer');
-                if (container) {
-                    container.addEventListener('scroll', updateScrollButtons);
-                }
-                window.addEventListener('resize', updateScrollButtons);
 
             } catch (error) {
                 console.error('Hata:', error);
