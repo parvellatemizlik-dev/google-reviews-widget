@@ -1,0 +1,33 @@
+name: Google Yorumları Güncelle
+
+on:
+  workflow_dispatch:  # Manuel tetikleme - GitHub'da buton görünür
+  schedule:
+    - cron: '0 9 * * *'  # Her gün saat 09:00'da otomatik çalışır (opsiyonel)
+
+jobs:
+  update-reviews:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Repository'yi çek
+        uses: actions/checkout@v4
+      
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: API Key'i config'e ekle
+        run: |
+          sed -i "s/BURAYA_API_KEY_YAPISTIRIN/${{ secrets.GOOGLE_API_KEY }}/g" config.json
+      
+      - name: Yorumları çek
+        run: node fetch-reviews.js
+      
+      - name: Değişiklikleri kaydet ve yükle
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add reviews.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🔄 Yorumlar güncellendi [bot]" && git push)
