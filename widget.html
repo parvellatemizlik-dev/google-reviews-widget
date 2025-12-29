@@ -18,16 +18,18 @@
         }
         
         .reviews-container {
-            max-width: 800px;
+            width: 100%;
+            max-width: 100%;
             margin: 0 auto;
         }
         
+        /* Header Bölümü */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding: 20px;
+            margin-bottom: 20px;
+            padding: 20px 30px;
             background: #fff;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -42,24 +44,42 @@
         .rating-number {
             font-size: 48px;
             font-weight: bold;
-            color: #1a73e8;
+            color: #1a1a1a;
+        }
+        
+        .rating-stars-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
         }
         
         .rating-stars {
-            font-size: 24px;
-            color: #fbbc04;
+            display: inline-flex;
+            gap: 3px;
+            align-items: center;
+        }
+        
+        .rating-stars .star {
+            width: 20px;
+            height: 20px;
+            fill: #fbbc04;
+        }
+        
+        .google-logo-small {
+            width: 60px;
+            height: 20px;
+            margin-left: 5px;
         }
         
         .total-reviews {
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
+            font-size: 13px;
+            color: #5f6368;
         }
         
-        .google-button {
-            background: #4285f4;
+        .review-button {
+            background: #1a73e8;
             color: white;
-            padding: 12px 24px;
+            padding: 12px 28px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -70,90 +90,289 @@
             align-items: center;
             gap: 8px;
             transition: background 0.3s;
+            white-space: nowrap;
         }
         
-        .google-button:hover {
-            background: #357ae8;
+        .review-button:hover {
+            background: #1557b0;
         }
         
-        .google-icon {
-            width: 18px;
-            height: 18px;
+        /* Yorum Kartları - Horizontal Scroll */
+        .reviews-scroll-wrapper {
+            position: relative;
+        }
+        
+        .reviews-scroll-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin-bottom: 20px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .reviews-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .reviews-grid {
+            display: flex;
+            gap: 15px;
+            min-width: min-content;
+        }
+        
+        /* Scroll Butonları */
+        .scroll-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .scroll-button:hover {
+            background: #f5f5f5;
+            border-color: #1a73e8;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .scroll-button.left {
+            left: -24px;
+        }
+        
+        .scroll-button.right {
+            right: -24px;
+        }
+        
+        .scroll-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #5f6368;
+        }
+        
+        .scroll-button:hover svg {
+            fill: #1a73e8;
+        }
+        
+        .scroll-button.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
         }
         
         .review-card {
             background: #fff;
             padding: 20px;
-            margin-bottom: 15px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-width: 250px;
+            max-width: 250px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
             transition: transform 0.2s, box-shadow 0.2s;
         }
         
         .review-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         
-        .review-header {
+        /* Kullanıcı Bilgileri */
+        .user-info {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            gap: 12px;
             margin-bottom: 12px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .user-details {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .user-name-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 3px;
         }
         
         .author-name {
             font-weight: 600;
             color: #202124;
-            font-size: 16px;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
-        .review-rating {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .stars {
-            color: #fbbc04;
-            font-size: 16px;
+        .verified-badge {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
         }
         
         .review-time {
             color: #5f6368;
-            font-size: 13px;
+            font-size: 12px;
         }
         
+        .review-time a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        
+        .review-time a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Yıldızlar */
+        .review-rating {
+            margin-bottom: 12px;
+        }
+        
+        .stars {
+            display: inline-flex;
+            gap: 2px;
+        }
+        
+        .star {
+            width: 16px;
+            height: 16px;
+            fill: #fbbc04;
+        }
+        
+        /* Yorum Metni */
         .review-text {
             color: #3c4043;
-            line-height: 1.6;
-            font-size: 14px;
+            line-height: 1.5;
+            font-size: 13px;
+            flex: 1;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+        
+        .read-more {
+            color: #1a73e8;
+            font-size: 13px;
+            cursor: pointer;
+            margin-top: 8px;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .read-more:hover {
+            text-decoration: underline;
+        }
+        
+        .review-text.expanded {
+            -webkit-line-clamp: unset;
+            display: block;
         }
         
         .loading {
             text-align: center;
             padding: 40px;
             color: #666;
+            font-size: 16px;
         }
         
         .error {
             text-align: center;
             padding: 40px;
             color: #d93025;
-            background: #fce8e6;
+            background: #fff;
             border-radius: 12px;
         }
         
+        @media (max-width: 1200px) {
+            .reviews-grid {
+                gap: 12px;
+            }
+            
+            .review-card {
+                min-width: 230px;
+                max-width: 230px;
+            }
+        }
+        
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
             .header {
                 flex-direction: column;
-                gap: 20px;
+                gap: 15px;
                 text-align: center;
+                padding: 15px 20px;
             }
             
             .rating-summary {
                 flex-direction: column;
-                gap: 10px;
+            }
+            
+            .rating-number {
+                font-size: 40px;
+            }
+            
+            .review-card {
+                min-width: 200px;
+                max-width: 200px;
+                padding: 15px;
+            }
+            
+            .review-button {
+                width: 100%;
+                justify-content: center;
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+            
+            .scroll-button {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .review-card {
+                min-width: 180px;
+                max-width: 180px;
+            }
+            
+            .rating-number {
+                font-size: 36px;
+            }
+            
+            .google-logo-small {
+                width: 50px;
+                height: 16px;
             }
         }
     </style>
@@ -166,17 +385,75 @@
     </div>
 
     <script>
-        // GitHub'dan reviews.json dosyasını çek
-        const GITHUB_USERNAME = 'GITHUB_KULLANICI_ADINIZ'; // Buraya GitHub kullanıcı adınızı yazın
+        const GITHUB_USERNAME = 'parvellatemizlik-dev';
         const REPO_NAME = 'google-reviews-widget';
-        const REVIEWS_URL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/main/reviews.json`;
+        const REVIEWS_URL = 'https://raw.githubusercontent.com/' + GITHUB_USERNAME + '/' + REPO_NAME + '/main/reviews.json';
 
         function renderStars(rating) {
             const fullStars = Math.floor(rating);
-            const hasHalfStar = rating % 1 >= 0.5;
-            let stars = '⭐'.repeat(fullStars);
-            if (hasHalfStar) stars += '⭐';
-            return stars;
+            let starsHtml = '';
+            for (let i = 0; i < fullStars; i++) {
+                starsHtml += '<svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+            }
+            return starsHtml;
+        }
+
+        function getInitials(name) {
+            const words = name.split(' ');
+            if (words.length >= 2) {
+                return (words[0][0] + words[1][0]).toUpperCase();
+            }
+            return name.substring(0, 2).toUpperCase();
+        }
+
+        function getAvatarColor(name) {
+            const colors = [
+                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+                'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+                'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+            ];
+            const index = name.charCodeAt(0) % colors.length;
+            return colors[index];
+        }
+
+        function toggleReadMore(element) {
+            const reviewText = element.previousElementSibling;
+            reviewText.classList.toggle('expanded');
+            element.textContent = reviewText.classList.contains('expanded') ? 'Daha az' : 'Daha fazla';
+        }
+
+        function scrollReviews(direction) {
+            const container = document.getElementById('scrollContainer');
+            const cardWidth = 250 + 15;
+            container.scrollBy({
+                left: direction * cardWidth * 2,
+                behavior: 'smooth'
+            });
+        }
+
+        function updateScrollButtons() {
+            const container = document.getElementById('scrollContainer');
+            const leftBtn = document.getElementById('scrollLeft');
+            const rightBtn = document.getElementById('scrollRight');
+            
+            if (!container || !leftBtn || !rightBtn) return;
+            
+            if (container.scrollLeft <= 0) {
+                leftBtn.classList.add('disabled');
+            } else {
+                leftBtn.classList.remove('disabled');
+            }
+            
+            if (container.scrollLeft >= container.scrollWidth - container.clientWidth - 1) {
+                rightBtn.classList.add('disabled');
+            } else {
+                rightBtn.classList.remove('disabled');
+            }
         }
 
         async function loadReviews() {
@@ -185,50 +462,86 @@
                 if (!response.ok) throw new Error('Yorumlar yüklenemedi');
                 
                 const data = await response.json();
+                const sortedReviews = data.reviews.reverse();
                 
-                const widget = document.getElementById('reviews-widget');
-                
-                widget.innerHTML = `
-                    <div class="header">
-                        <div class="rating-summary">
-                            <div class="rating-number">${data.rating.toFixed(1)}</div>
-                            <div>
-                                <div class="rating-stars">${renderStars(data.rating)}</div>
-                                <div class="total-reviews">${data.totalReviews} yorum</div>
-                            </div>
-                        </div>
-                        <a href="${data.googleMapsUrl}" target="_blank" class="google-button">
-                            <svg class="google-icon" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                            </svg>
-                            Google'da Gör
-                        </a>
-                    </div>
+                let headerHTML = '<div class="header">';
+                headerHTML += '<div class="rating-summary">';
+                headerHTML += '<div class="rating-number">' + data.rating.toFixed(1) + '</div>';
+                headerHTML += '<div class="rating-stars-wrapper">';
+                headerHTML += '<div class="rating-stars">';
+                headerHTML += renderStars(data.rating);
+                headerHTML += '<svg class="google-logo-small" viewBox="0 0 272 92" xmlns="http://www.w3.org/2000/svg">';
+                headerHTML += '<path fill="#EA4335" d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/>';
+                headerHTML += '<path fill="#FBBC05" d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/>';
+                headerHTML += '<path fill="#4285F4" d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z"/>';
+                headerHTML += '<path fill="#34A853" d="M225 3v65h-9.5V3h9.5z"/>';
+                headerHTML += '<path fill="#EA4335" d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z"/>';
+                headerHTML += '<path fill="#4285F4" d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49.01z"/>';
+                headerHTML += '</svg>';
+                headerHTML += '</div>';
+                headerHTML += '<div class="total-reviews">Bizden hizmet alan ' + data.totalReviews + ' kullanıcı yorumu</div>';
+                headerHTML += '</div></div>';
+                headerHTML += '<a href="' + data.googleMapsUrl + '" target="_blank" class="review-button">Tüm Google Yorumları</a>';
+                headerHTML += '</div>';
+
+                let reviewsHTML = '<div class="reviews-scroll-wrapper">';
+                reviewsHTML += '<button class="scroll-button left" id="scrollLeft" onclick="scrollReviews(-1)">';
+                reviewsHTML += '<svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>';
+                reviewsHTML += '</button>';
+                reviewsHTML += '<div class="reviews-scroll-container" id="scrollContainer">';
+                reviewsHTML += '<div class="reviews-grid">';
+
+                sortedReviews.forEach(function(review) {
+                    reviewsHTML += '<div class="review-card">';
+                    reviewsHTML += '<div class="user-info">';
                     
-                    ${data.reviews.map(review => `
-                        <div class="review-card">
-                            <div class="review-header">
-                                <div class="author-name">${review.author}</div>
-                                <div class="review-rating">
-                                    <span class="stars">${renderStars(review.rating)}</span>
-                                    <span class="review-time">${review.relativeTime}</span>
-                                </div>
-                            </div>
-                            <div class="review-text">${review.text || 'Yorum metni yok.'}</div>
-                        </div>
-                    `).join('')}
-                `;
+                    if (review.authorPhotoUrl) {
+                        reviewsHTML += '<img src="' + review.authorPhotoUrl + '" alt="' + review.author + '" class="user-avatar" style="object-fit: cover;">';
+                    } else {
+                        reviewsHTML += '<div class="user-avatar" style="background: ' + getAvatarColor(review.author) + '">';
+                        reviewsHTML += getInitials(review.author);
+                        reviewsHTML += '</div>';
+                    }
+                    
+                    reviewsHTML += '<div class="user-details">';
+                    reviewsHTML += '<div class="user-name-row">';
+                    reviewsHTML += '<div class="author-name">' + review.author + '</div>';
+                    reviewsHTML += '<svg class="verified-badge" viewBox="0 0 24 24" fill="#1a73e8">';
+                    reviewsHTML += '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>';
+                    reviewsHTML += '</svg></div>';
+                    reviewsHTML += '<div class="review-time">' + review.relativeTime + ' on <a href="https://www.google.com/maps" target="_blank">Google</a></div>';
+                    reviewsHTML += '</div></div>';
+                    
+                    reviewsHTML += '<div class="review-rating"><div class="stars">' + renderStars(review.rating) + '</div></div>';
+                    reviewsHTML += '<div class="review-text">' + (review.text || 'Yorum metni yok.') + '</div>';
+                    
+                    if (review.text && review.text.length > 150) {
+                        reviewsHTML += '<div class="read-more" onclick="toggleReadMore(this)">Daha fazla</div>';
+                    }
+                    
+                    reviewsHTML += '</div>';
+                });
+
+                reviewsHTML += '</div></div>';
+                reviewsHTML += '<button class="scroll-button right" id="scrollRight" onclick="scrollReviews(1)">';
+                reviewsHTML += '<svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>';
+                reviewsHTML += '</button></div>';
+
+                document.getElementById('reviews-widget').innerHTML = headerHTML + reviewsHTML;
+
+                setTimeout(updateScrollButtons, 100);
+                const container = document.getElementById('scrollContainer');
+                if (container) {
+                    container.addEventListener('scroll', updateScrollButtons);
+                }
+                window.addEventListener('resize', updateScrollButtons);
+
             } catch (error) {
                 console.error('Hata:', error);
-                document.getElementById('reviews-widget').innerHTML = `
-                    <div class="error">
-                        Yorumlar yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.
-                    </div>
-                `;
+                document.getElementById('reviews-widget').innerHTML = '<div class="error">Yorumlar yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.</div>';
             }
         }
 
-        // Sayfa yüklendiğinde yorumları getir
         loadReviews();
     </script>
 </body>
