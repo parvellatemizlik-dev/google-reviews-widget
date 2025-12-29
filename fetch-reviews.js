@@ -6,7 +6,7 @@ const config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
 
 const options = {
   hostname: 'places.googleapis.com',
-  path: `/v1/places/${config.placeId}?fields=displayName,rating,userRatingCount,reviews&languageCode=${config.language}&key=${config.apiKey}`,
+  path: `/v1/places/${config.placeId}?fields=displayName,rating,userRatingCount,reviews&reviews.maxCount=10&languageCode=${config.language}&key=${config.apiKey}`,
   method: 'GET',
   headers: {
     'Content-Type': 'application/json'
