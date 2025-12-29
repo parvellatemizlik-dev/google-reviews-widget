@@ -106,12 +106,14 @@
             overflow-x: auto;
             overflow-y: hidden;
             margin-bottom: 20px;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
         }
         
         .reviews-scroll-container::-webkit-scrollbar {
-            display: none;
+            display: none; /* Chrome/Safari/Opera */
+            width: 0;
+            height: 0;
         }
         
         .reviews-grid {
@@ -462,7 +464,7 @@
                 if (!response.ok) throw new Error('Yorumlar yüklenemedi');
                 
                 const data = await response.json();
-                const sortedReviews = data.reviews.reverse();
+                // API zaten yeniden eskiye sıralı geliyor, reverse gereksiz
                 
                 let headerHTML = '<div class="header">';
                 headerHTML += '<div class="rating-summary">';
@@ -491,7 +493,7 @@
                 reviewsHTML += '<div class="reviews-scroll-container" id="scrollContainer">';
                 reviewsHTML += '<div class="reviews-grid">';
 
-                sortedReviews.forEach(function(review) {
+                data.reviews.forEach(function(review) {
                     reviewsHTML += '<div class="review-card">';
                     reviewsHTML += '<div class="user-info">';
                     
@@ -516,7 +518,7 @@
                     reviewsHTML += '<div class="review-text">' + (review.text || 'Yorum metni yok.') + '</div>';
                     
                     if (review.text && review.text.length > 150) {
-                        reviewsHTML += '<div class="read-more" onclick="toggleReadMore(this)">Daha fazla</div>';
+                        reviewsHTML += '<a href="' + data.googleMapsUrl + '" target="_blank" class="read-more">Daha fazla</a>';
                     }
                     
                     reviewsHTML += '</div>';
