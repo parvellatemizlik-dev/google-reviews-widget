@@ -1,7 +1,7 @@
 {
   "businessName": "Parvella Temizlik",
   "rating": 5,
-  "totalReviews": 45,
+  "totalReviews": 46,
   "reviews": [
     {
       "author": "Serkan Dedeoglu",
@@ -44,6 +44,6 @@
       "publishTime": "2025-11-13T14:34:17.990130896Z"
     }
   ],
-  "lastUpdated": "2026-01-31T09:22:11.446Z",
+  "lastUpdated": "2026-02-01T09:25:27.195Z",
   "googleMapsUrl": "https://maps.app.goo.gl/pVY6UkGWYnsh61Mo6"
 }
