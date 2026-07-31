@@ -27,8 +27,10 @@ const req = https.request(options, (res) => {
       try {
         const result = JSON.parse(data);
         
-        // Sadece son N yorumu al
-        const reviews = result.reviews ? result.reviews.slice(0, config.reviewCount) : [];
+        // 1 yıldızlı yorumları filtrele, sonra son N yorumu al
+        const allReviews = result.reviews || [];
+        const filteredReviews = allReviews.filter(review => review.rating !== 1);
+        const reviews = filteredReviews.slice(0, config.reviewCount);
         
         const output = {
           businessName: result.displayName?.text || config.businessName,
