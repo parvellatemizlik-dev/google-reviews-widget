@@ -1,7 +1,7 @@
 {
   "businessName": "Parvella Temizlik",
   "rating": 4.9,
-  "totalReviews": 55,
+  "totalReviews": 56,
   "reviews": [
     {
       "author": "aslı arısoy",
@@ -36,6 +36,6 @@
       "publishTime": "2026-04-01T07:51:03.450975890Z"
     }
   ],
-  "lastUpdated": "2026-08-14T09:51:02.863Z",
+  "lastUpdated": "2026-08-15T09:15:45.751Z",
   "googleMapsUrl": "https://maps.app.goo.gl/pVY6UkGWYnsh61Mo6"
 }
