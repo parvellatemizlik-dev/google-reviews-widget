@@ -1,14 +1,14 @@
 {
   "businessName": "Parvella Temizlik",
   "rating": 4.6,
-  "totalReviews": 63,
+  "totalReviews": 64,
   "reviews": [
     {
       "author": "hayriye kan",
       "authorPhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocLbm0KNQSpM_G89K41PQTJdwiTbrwTxJjqdqJrwyNXv_GI5LQ=s128-c0x00000000-cc-rp-mo",
       "rating": 5,
       "text": "Canan hanım ve ekibin başında Murat beye öncelikle, sonrada emeği geçen bütün ekip arkadaşlarına bi çok teşekkür ederim 🌸\ninşaat sonrası temizlik için destek aldım ben ve çok memnun kaldım 🙏🏻\nbuharlı temizliğin önemini temizlik öncesi değil de bittikten sonra çok daha iyi anladım ☺️ emeğinize sağlık 🌸",
-      "relativeTime": "geçen hafta içinde",
+      "relativeTime": "bir hafta önce",
       "publishTime": "2026-11-15T17:06:16.993607165Z"
     },
     {
@@ -28,6 +28,6 @@
       "publishTime": "2026-06-23T08:19:47.281700967Z"
     }
   ],
-  "lastUpdated": "2026-11-22T16:46:04.295Z",
+  "lastUpdated": "2026-11-23T20:41:05.392Z",
   "googleMapsUrl": "https://maps.app.goo.gl/pVY6UkGWYnsh61Mo6"
 }
